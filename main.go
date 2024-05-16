@@ -8,10 +8,13 @@ import (
 )
 
 func main() {
+	//creates new hub
 	hub := NewHub()
+	//start the hub
 	go hub.start()
-
+	//start the http router
 	r := mux.NewRouter()
+	//any http request as at /ws will be passed to hub.Handlews for an upgrader to websockets
 	r.HandleFunc("/ws", hub.Handlews)
 
 	http.Handle("/", r)
